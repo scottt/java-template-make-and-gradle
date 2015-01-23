@@ -1,0 +1,36 @@
+apply plugin: 'java'
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src']
+      exclude '**/*Test.java'
+    }
+  }
+  test {
+    java { 
+      srcDirs = ['src']
+      include '**/*Test.java'
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'junit:junit:4.+'
+  testCompile 'junit:junit:4.+'
+}
+
+task copyDeps(type: Copy) {
+  from configurations.runtime
+  into 'build/lib'
+}
+
+test {
+  testLogging {
+    exceptionFormat = 'full'
+  }
+}
